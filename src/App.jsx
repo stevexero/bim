@@ -2,7 +2,6 @@ import Html5QrcodePlugin from './Html5QrcodePlugin.jsx';
 
 function App() {
   const onNewScanResult = (decodedText, decodedResult) => {
-    // handle decoded results here
     alert(`Decoded Text: ${decodedText}`);
     console.log(decodedResult);
   };
@@ -11,7 +10,7 @@ function App() {
     <div>
       <Html5QrcodePlugin
         fps={10}
-        qrbox={250}
+        qrbox={{ width: 350, height: 100 }}
         disableFlip={false}
         qrCodeSuccessCallback={onNewScanResult}
       />
