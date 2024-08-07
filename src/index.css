@@ -13,3 +13,15 @@
 #html5qr-code-full-region__dashboard_section > div:nth-child(2) {
   display: none;
 }
+
+/* Hide additional features provided by Html5QrcodePlugin */
+#html5qr-code-full-region__dashboard_section_csr select
+/* #html5qr-code-full-region__dashboard_section_csr input[type="range"], */
+/* #html5qr-code-full-region__dashboard_section_csr button#html5-qrcode-button-camera-start */ {
+  display: none !important;
+}
+
+/* Ensure the stop button remains visible */
+/* #html5qr-code-full-region__dashboard_section_csr button#html5-qrcode-button-camera-stop {
+  display: inline-block !important;
+} */
