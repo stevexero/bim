@@ -48,6 +48,11 @@ const BarcodeScanner = ({ onScan }) => {
     if (codeReader) {
       codeReader.reset();
     }
+    if (videoRef.current && videoRef.current.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
   };
 
   return (
