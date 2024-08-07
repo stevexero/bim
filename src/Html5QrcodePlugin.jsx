@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 
+const qrcodeRegionId = 'html5qr-code-full-region';
+
 const createConfig = ({ fps, qrbox, disableFlip, aspectRatio }) => {
   let config = {};
   if (fps) {
@@ -27,6 +29,7 @@ const Html5QrcodePlugin = (props) => {
     if (!props.qrCodeSuccessCallback) {
       throw new Error('qrCodeSuccessCallback is a required callback.');
     }
+
     const html5QrcodeScanner = new Html5QrcodeScanner(
       'html5qr-code-full-region',
       { formatsToSupport: [Html5QrcodeSupportedFormats.CODE_39] },
@@ -45,7 +48,7 @@ const Html5QrcodePlugin = (props) => {
     };
   }, [props]);
 
-  return <div id='html5qr-code-full-region' />;
+  return <div id={qrcodeRegionId} className='html5-qrcode-container' />;
 };
 
 Html5QrcodePlugin.propTypes = {

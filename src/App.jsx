@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Scanner from './Scanner';
+import useBarCodeStore from './store';
 
 function App() {
+  const barCode = useBarCodeStore((state) => state.barCode);
   const [screen, setScreen] = useState('main');
   const [title, setTitle] = useState('BIM');
   const [subTitle, setSubTitle] = useState('BoxValet Inventory Management');
@@ -14,7 +16,7 @@ function App() {
   };
 
   return (
-    <div className='w-screen p-4'>
+    <div className='w-screen max-w-lg p-4 mx-auto relative'>
       <div className='w-full'>
         <h1 className='font-bold text-center'>{title}</h1>
         <p className='text-center'>{subTitle}</p>
@@ -51,6 +53,7 @@ function App() {
               </div>
               <div className='mt-4'>
                 <Scanner />
+                <p className='mt-4'>Code: {barCode}</p>
               </div>
             </>
           )

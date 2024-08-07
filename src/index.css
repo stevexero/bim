@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.html5-qrcode-container #html5qr-code-full-region__dashboard {
+  @apply btn btn-primary text-white;
+}
+
+#html5qr-code-full-region > div:first-child {
+  display: none;
+}
+
+#html5qr-code-full-region__dashboard_section > div:nth-child(2) {
+  display: none;
+}
