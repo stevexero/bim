@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div>
-      <h1>BimScan</h1>
+      <h1>Barcode Scanner</h1>
       <BarcodeScanner onScan={handleScan} />
     </div>
   );

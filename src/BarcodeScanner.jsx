@@ -1,58 +1,23 @@
-import { useRef, useState, useEffect } from 'react';
-import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+import { useState } from 'react';
+import { Scanner } from '@yudiel/react-qr-scanner';
 import PropTypes from 'prop-types';
 
 const BarcodeScanner = ({ onScan }) => {
-  const videoRef = useRef(null);
   const [scanning, setScanning] = useState(false);
-  const [codeReader, setCodeReader] = useState(null);
 
-  useEffect(() => {
-    const newCodeReader = new BrowserMultiFormatReader();
-    setCodeReader(newCodeReader);
-    return () => {
-      if (newCodeReader) {
-        newCodeReader.reset();
-      }
-    };
-  }, []);
-
-  const startScan = async () => {
-    if (!codeReader) return;
-
-    setScanning(true);
-
-    try {
-      await codeReader.decodeFromVideoDevice(
-        null,
-        videoRef.current,
-        (result, err) => {
-          if (result) {
-            onScan(result.text);
-            stopScan();
-          }
-          if (err && !(err instanceof NotFoundException)) {
-            console.error(err);
-            stopScan();
-          }
-        }
-      );
-    } catch (error) {
-      console.error('Error accessing camera:', error);
-      stopScan();
+  const handleScan = (result) => {
+    if (result && result.length > 0) {
+      onScan(result[0].rawValue);
+      setScanning(false);
     }
+  };
+
+  const startScan = () => {
+    setScanning(true);
   };
 
   const stopScan = () => {
     setScanning(false);
-    if (codeReader) {
-      codeReader.reset();
-    }
-    if (videoRef.current && videoRef.current.srcObject) {
-      const tracks = videoRef.current.srcObject.getTracks();
-      tracks.forEach((track) => track.stop());
-      videoRef.current.srcObject = null;
-    }
   };
 
   return (
@@ -60,11 +25,7 @@ const BarcodeScanner = ({ onScan }) => {
       <button onClick={scanning ? stopScan : startScan}>
         {scanning ? 'Stop' : 'Scan'}
       </button>
-      {scanning && (
-        <div>
-          <video ref={videoRef} style={{ width: '100%' }} />
-        </div>
-      )}
+      {scanning && <Scanner onScan={handleScan} />}
     </div>
   );
 };
