@@ -1,14 +1,20 @@
-import BarcodeScanner from './BarcodeScanner.jsx';
+import Html5QrcodePlugin from './Html5QrcodePlugin.jsx';
 
 function App() {
-  const handleScan = (data) => {
-    alert(`Scanned Code: ${data}`);
+  const onNewScanResult = (decodedText, decodedResult) => {
+    // handle decoded results here
+    alert(`Decoded Text: ${decodedText}`);
+    console.log(decodedResult);
   };
 
   return (
     <div>
-      <h1>Barcode Scanner</h1>
-      <BarcodeScanner onScan={handleScan} />
+      <Html5QrcodePlugin
+        fps={10}
+        qrbox={250}
+        disableFlip={false}
+        qrCodeSuccessCallback={onNewScanResult}
+      />
     </div>
   );
 }
