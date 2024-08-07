@@ -15,7 +15,8 @@
 }
 
 /* Hide additional features provided by Html5QrcodePlugin */
-#html5qr-code-full-region__dashboard_section_csr select
+#html5qr-code-full-region__dashboard_section_csr select,
+#html5-qrcode-select-camera
 /* #html5qr-code-full-region__dashboard_section_csr input[type="range"], */
 /* #html5qr-code-full-region__dashboard_section_csr button#html5-qrcode-button-camera-start */ {
   display: none !important;
