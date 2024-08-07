@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 
 const createConfig = ({ fps, qrbox, disableFlip, aspectRatio }) => {
   let config = {};
@@ -29,6 +29,7 @@ const Html5QrcodePlugin = (props) => {
     }
     const html5QrcodeScanner = new Html5QrcodeScanner(
       'html5qr-code-full-region',
+      { formatsToSupport: [Html5QrcodeSupportedFormats.CODE_39] },
       config,
       verbose
     );
