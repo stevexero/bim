@@ -17,15 +17,15 @@ const Scanner = () => {
     setScanning(true);
   };
 
-  let qrboxFunction = function (viewfinderWidth, viewfinderHeight) {
-    let minEdgePercentage = 0.2;
-    let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
-    let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
-    return {
-      width: qrboxSize,
-      height: qrboxSize,
-    };
-  };
+  //   let qrboxFunction = function (viewfinderWidth, viewfinderHeight) {
+  //     let minEdgePercentage = 0.2;
+  //     let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+  //     let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+  //     return {
+  //       width: qrboxSize,
+  //       height: qrboxSize,
+  //     };
+  //   };
 
   return (
     <div>
@@ -36,7 +36,7 @@ const Scanner = () => {
       ) : (
         <Html5QrcodePlugin
           fps={10}
-          qrbox={qrboxFunction}
+          //   qrbox={qrboxFunction}
           disableFlip={false}
           qrCodeSuccessCallback={onNewScanResult}
         />
