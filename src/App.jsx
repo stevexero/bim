@@ -1,30 +1,31 @@
-import Html5QrcodePlugin from './Html5QrcodePlugin.jsx';
+import { useState } from 'react';
+import Scanner from './Scanner';
 
 function App() {
-  const onNewScanResult = (decodedText, decodedResult) => {
-    alert(`Decoded Text: ${decodedText}`);
-    console.log(decodedResult);
-  };
+  const [screen, setScreen] = useState('main');
 
-  let qrboxFunction = function (viewfinderWidth, viewfinderHeight) {
-    let minEdgePercentage = 0.7;
-    let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
-    let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
-    return {
-      width: qrboxSize,
-      height: qrboxSize,
-    };
+  const handleClick = (e) => {
+    setScreen(e.target.id);
   };
 
   return (
     <div>
-      <Html5QrcodePlugin
-        fps={10}
-        // qrbox={{ width: 350, height: 100 }}
-        qrbox={qrboxFunction}
-        disableFlip={false}
-        qrCodeSuccessCallback={onNewScanResult}
-      />
+      {screen === 'main' ? (
+        <>
+          <button id='scanner' onClick={handleClick}>
+            Scanner
+          </button>
+        </>
+      ) : (
+        screen === 'scanner' && (
+          <>
+            <button id='main' onClick={handleClick}>
+              Home
+            </button>
+            <Scanner />
+          </>
+        )
+      )}
     </div>
   );
 }
