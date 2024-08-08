@@ -4,39 +4,38 @@ import useBarCodeStore from './store';
 
 const Scanner2 = () => {
   const setBarCode = useBarCodeStore((state) => state.setBarCode);
-  if (isMobile) {
-    Html5Qrcode.getCameras() // Trigger user permissions
-      .then((devices) => {
-        if (devices && devices.length) {
-          const html5QrCode = new Html5Qrcode('reader');
 
-          const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-            console.log(decodedResult);
-            setBarCode(decodedText);
-            html5QrCode
-              .stop()
-              .then(() => {
-                console.log('Scanning Complete');
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          };
+  Html5Qrcode.getCameras() // Trigger user permissions
+    .then((devices) => {
+      if (devices && devices.length) {
+        const html5QrCode = new Html5Qrcode('reader');
 
-          const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+        const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+          console.log(decodedResult);
+          setBarCode(decodedText);
+          html5QrCode
+            .stop()
+            .then(() => {
+              console.log('Scanning Complete');
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
 
-          html5QrCode.start(
-            { facingMode: 'environment' },
-            { formatsToSupport: [Html5QrcodeSupportedFormats.CODE_39] },
-            config,
-            qrCodeSuccessCallback
-          );
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+        html5QrCode.start(
+          { facingMode: 'environment' },
+          { formatsToSupport: [Html5QrcodeSupportedFormats.CODE_39] },
+          config,
+          qrCodeSuccessCallback
+        );
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 
   return (
     <>
