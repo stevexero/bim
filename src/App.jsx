@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { isMobile } from 'react-device-detect';
 import { GoHomeFill, GoTriangleLeft } from 'react-icons/go';
 import Scanner2 from './Scanner2';
@@ -6,11 +6,23 @@ import useBarCodeStore from './store';
 
 function App() {
   const barCode = useBarCodeStore((state) => state.barCode);
+  const qrCodeRef = useRef(null);
 
   const [screen, setScreen] = useState('main');
   const [title, setTitle] = useState('BIM');
   const [subTitle, setSubTitle] = useState('BoxValet Inventory Management');
   const [history, setHistory] = useState(['main']);
+
+  const stopScanner = async () => {
+    if (qrCodeRef.current) {
+      try {
+        await qrCodeRef.current.stop();
+        qrCodeRef.current.clear();
+      } catch (error) {
+        console.error('Failed to stop scanning', error);
+      }
+    }
+  };
 
   const handleClick = (e) => {
     const newScreen = e.target.id;
@@ -19,11 +31,17 @@ function App() {
       setTitle(words[0]);
       setSubTitle(words[1]);
     }
+    if (screen === 'scanner') {
+      stopScanner();
+    }
     setHistory([...history, newScreen]);
     setScreen(newScreen);
   };
 
   const handleHomeClick = () => {
+    if (screen === 'scanner') {
+      stopScanner();
+    }
     setTitle('BIM');
     setSubTitle('BoxValet Inventory Management');
     setHistory(['main']);
@@ -34,6 +52,9 @@ function App() {
     const newHistory = [...history];
     newHistory.pop();
     const previousScreen = newHistory[newHistory.length - 1];
+    if (screen === 'scanner') {
+      stopScanner();
+    }
     setHistory(newHistory);
     setScreen(previousScreen);
   };
@@ -99,7 +120,7 @@ function App() {
                 {!isMobile ? 'Mobile Only' : 'Scanner'}
               </button>
               <button
-                id='scanner'
+                id='future'
                 name='Future Button,Future Subtitle'
                 className='btn btn-lg btn-outline btn-error text-white'
               >
@@ -113,7 +134,7 @@ function App() {
               <BackButton />
               <HomeButton />
               <div className='mt-4'>
-                <Scanner2 />
+                <Scanner2 qrCodeRef={qrCodeRef} />
                 <p className='mt-4'>Code: {barCode}</p>
               </div>
             </>

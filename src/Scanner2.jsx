@@ -1,41 +1,64 @@
-import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+// import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+import { useEffect, useRef } from 'react';
+import { Html5Qrcode } from 'html5-qrcode';
 import { isMobile } from 'react-device-detect';
 import useBarCodeStore from './store';
+import PropTypes from 'prop-types';
 
-const Scanner2 = () => {
+const Scanner2 = ({ qrCodeRef }) => {
   const setBarCode = useBarCodeStore((state) => state.setBarCode);
+  const qrCodeInstanceRef = useRef(null);
 
-  Html5Qrcode.getCameras() // Trigger user permissions
-    .then((devices) => {
-      if (devices && devices.length) {
-        const html5QrCode = new Html5Qrcode('reader');
+  useEffect(() => {
+    if (isMobile) {
+      Html5Qrcode.getCameras()
+        .then((devices) => {
+          if (devices && devices.length) {
+            const html5QrCode = new Html5Qrcode('reader');
+            qrCodeInstanceRef.current = html5QrCode;
+            if (qrCodeRef) {
+              qrCodeRef.current = html5QrCode;
+            }
 
-        const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-          console.log(decodedResult);
-          setBarCode(decodedText);
-          html5QrCode
+            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+              console.log(decodedResult);
+              setBarCode(decodedText);
+              html5QrCode
+                .stop()
+                .then(() => {
+                  console.log('Scanning Complete');
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            };
+
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+            html5QrCode.start(
+              { facingMode: 'environment' },
+              // { formatsToSupport: [Html5QrcodeSupportedFormats.CODE_39] },
+              config,
+              qrCodeSuccessCallback
+            );
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+      return () => {
+        if (qrCodeInstanceRef.current) {
+          qrCodeInstanceRef.current
             .stop()
             .then(() => {
-              console.log('Scanning Complete');
+              qrCodeInstanceRef.current.clear();
             })
-            .catch((err) => {
-              console.log(err);
-            });
-        };
-
-        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-
-        html5QrCode.start(
-          { facingMode: 'environment' },
-          { formatsToSupport: [Html5QrcodeSupportedFormats.CODE_39] },
-          config,
-          qrCodeSuccessCallback
-        );
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+            .catch((err) => console.error('Failed to stop scanning', err));
+        }
+      };
+    }
+  }, [setBarCode, qrCodeRef]);
 
   return (
     <>
@@ -46,6 +69,12 @@ const Scanner2 = () => {
       )}
     </>
   );
+};
+
+Scanner2.propTypes = {
+  qrCodeRef: PropTypes.shape({
+    current: PropTypes.instanceOf(Object),
+  }).isRequired,
 };
 
 export default Scanner2;
