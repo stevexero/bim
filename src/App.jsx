@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import Scanner from './Scanner';
+// import Scanner from './Scanner';
+import Scanner2 from './Scanner2';
 import useBarCodeStore from './store';
 
 function App() {
   const barCode = useBarCodeStore((state) => state.barCode);
+
   const [screen, setScreen] = useState('main');
   const [title, setTitle] = useState('BIM');
   const [subTitle, setSubTitle] = useState('BoxValet Inventory Management');
@@ -52,7 +54,7 @@ function App() {
                 </button>
               </div>
               <div className='mt-4'>
-                <Scanner />
+                <Scanner2 />
                 <p className='mt-4'>Code: {barCode}</p>
               </div>
             </>

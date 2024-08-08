@@ -2,23 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-.html5-qrcode-container #html5qr-code-full-region__dashboard {
+/* .html5-qrcode-container #html5qr-code-full-region__dashboard {
   @apply btn btn-primary text-white;
-}
+} */
 
 /* #html5qr-code-full-region > div:first-child {
   display: none;
-}
-
-#html5qr-code-full-region__dashboard_section > div:nth-child(2) {
-  display: none;
 } */
 
-/* #html5qr-code-full-region__dashboard_section_csr select,
-#html5-qrcode-select-camera,
-#html5qr-code-full-region__dashboard_section_csr span,
-#html5qr-code-full-region__scan_region img {
-  display: none !important;
+/* #html5qr-code-full-region__dashboard {
+  padding: 2rem;
+} */
+
+/* #html5qr-code-full-region__dashboard_section > div:nth-child(2) { */
+/* display: none; */
+/* @apply mt-4; */
+/* } */
+
+/* #html5qr-code-full-region__dashboard_section_csr select, */
+/* #html5-qrcode-select-camera, */
+/* #html5qr-code-full-region__dashboard_section_csr span { */
+/* display: none !important; */
+/* @apply btn btn-secondary; */
+/* } */
+
+/* #html5qr-code-full-region__scan_region img {
+  display: none;
 } */
 
 /* #html5qr-code-full-region__scan_region video {
