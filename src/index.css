@@ -6,31 +6,23 @@
   @apply btn btn-primary text-white;
 }
 
-#html5qr-code-full-region > div:first-child {
+/* #html5qr-code-full-region > div:first-child {
   display: none;
 }
 
 #html5qr-code-full-region__dashboard_section > div:nth-child(2) {
   display: none;
-}
-
-/* Hide additional features provided by Html5QrcodePlugin */
-#html5qr-code-full-region__dashboard_section_csr select,
-#html5-qrcode-select-camera,
-#html5qr-code-full-region__dashboard_section_csr span,
-#html5qr-code-full-region__scan_region img
-/* #html5qr-code-full-region__dashboard_section_csr input[type="range"], */
-/* #html5qr-code-full-region__dashboard_section_csr button#html5-qrcode-button-camera-start */ {
-  display: none !important;
-}
-
-/* Ensure the stop button remains visible */
-/* #html5qr-code-full-region__dashboard_section_csr button#html5-qrcode-button-camera-stop {
-  display: inline-block !important;
 } */
 
-#html5qr-code-full-region__scan_region video {
+/* #html5qr-code-full-region__dashboard_section_csr select,
+#html5-qrcode-select-camera,
+#html5qr-code-full-region__dashboard_section_csr span,
+#html5qr-code-full-region__scan_region img {
+  display: none !important;
+} */
+
+/* #html5qr-code-full-region__scan_region video {
   min-width: 100% !important;
   max-height: 150px !important;
   object-fit: cover;
-}
+} */
