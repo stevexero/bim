@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { isMobile } from 'react-device-detect';
 import useBarCodeStore from '../store';
@@ -10,9 +10,19 @@ const Scanner = () => {
 
   const [isRunning, setIsRunning] = useState(false);
 
+  let qrboxFunction = function (viewfinderWidth, viewfinderHeight) {
+    let minEdgePercentage = 0.7;
+    let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+    let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+    return {
+      width: qrboxSize,
+      height: qrboxSize,
+    };
+  };
+
   const config = {
     fps: 10,
-    qrbox: { width: 300, height: 150 },
+    qrbox: qrboxFunction(),
     formatsToSupport: [Html5QrcodeSupportedFormats.CODE_39],
   };
 
@@ -69,10 +79,6 @@ const Scanner = () => {
       startScan();
     }
   };
-
-  useEffect(() => {
-    console.log(isRunning);
-  }, [isRunning]);
 
   return (
     <div>
