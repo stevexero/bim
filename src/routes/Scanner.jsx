@@ -88,8 +88,7 @@ const Scanner = () => {
         <>
           <div
             id='reader'
-            className='border border-error rounded-2xl h-[299px]'
-            width='600px'
+            className='border border-error rounded-2xl h-[200px]'
           ></div>
           <button
             className='btn btn-lg btn-block rounded-xl btn-error text-white mt-4'
