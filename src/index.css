@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+#reader {
+  background: url('./assets/cam.png') no-repeat center center/contain;
+}
+
+#reader video,
+#qr-shaded-region {
+  @apply rounded-2xl;
+}
+
 /* .html5-qrcode-container #html5qr-code-full-region__dashboard {
   @apply btn btn-primary text-white;
 } */
